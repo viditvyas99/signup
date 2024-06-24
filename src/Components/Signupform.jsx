@@ -131,62 +131,64 @@ const validationSchema=Yup.object({
   pic:Yup.mixed().required('required'),
   address:Yup.string().required('required'),
   phone:Yup.string()
-  .required('required')
+  .required('*')
   .min(10,"must be exactly 10")
   .max(10,"must be exactly 10"),
 })
 const onSubmit =(value)=>{
-  URL.createObjectURL(value.pic)
-  setSubmitdata({...value,pic:''})
+  const picurl = value.pic?URL.createObjectURL(value.pic):null
+  setSubmitdata({...value,pic:picurl})
+  console.log(Submitdata.pic)
 
 }
 return(
-  <div>
+  <div className='main'>
     <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
     onSubmit={onSubmit}
+    
     >
       {({setFieldValue})=>(
-        <Form>
-          <div>
-            <label htmlFor='name'>First Name</label>
+        <Form className='formcss'>
+          <div className='boxcss'>
+            <label htmlFor='name'  >First Name</label>
             <Field  name= "name" type='text' />
             <ErrorMessage name='name' component='div' />
             <br />
           </div>
-          <div>
-            <label htmlFor='lastname'>last Name </label>
+          <div className='boxcss'>
+            <label htmlFor='lastname' >last Name </label>
             <Field  name= "lastname" type='text' />
             <ErrorMessage name='lastname' component='div' />
             <br />
           </div>
-            <div>
-              <label>Gender</label>
+            <div className='boxcss'>
+              <label className='labelcss'>Gender</label>
                 <div role='group' aria-labelledby='gender'>
                 <label>
               <Field  type='radio' name='gender' value='male'/>male
               </label>
-              <label>
+              <label >
               <Field  type='radio' name='gender' value='female'/>female
               </label>
-              <label>
+              <label >
               <Field  type='radio' name='gender' value='other'/>other
               </label>
               </div>
               <ErrorMessage  name='gender' component='div'/>
               </div>   
               <div>
-              <label htmlFor="pic"> profile picture</label>
-              <input type='file' id='pic' name='pic' onChange={(e)=>setFieldValue('pic',e.currentTarget.files[0])} />
+              <label htmlFor="pic" > profile picture</label>
+              <input type='file' id='pic' name='pic' onChange={(e)=>setFieldValue('pic',e.target.files[0])} />
               <ErrorMessage name='pic' component='div'/>
               </div>
-              <div>
-                <label htmlFor="address">address</label>
+              <div className='boxcss'>
+                <label htmlFor="address" > address</label>
                 <Field as='textarea' id="address" name="address" />
                 <ErrorMessage name='address' component='div' />
               </div>
-              <div>
+              <div className='boxcss'>
                 <label htmlFor="phone">Phone Number</label>
                 <Field  id="phone" name="phone" type='text' />
                 <ErrorMessage name='phone' component='div' />
@@ -198,7 +200,7 @@ return(
       )}
     </Formik>
     {
-      Submitdata (
+      Submitdata && (
         <div>
           <h2>Submited data</h2>
           <p><strong>Name</strong> {Submitdata.name}</p>
@@ -206,10 +208,10 @@ return(
           <p><strong>gender</strong> {Submitdata.gender}</p>
           <p><strong>address</strong> {Submitdata.address}</p>
           <p><strong>phone</strong> {Submitdata.phone}</p>
-          {Submitdata.pic(
-            <div>
+          {Submitdata.pic &&(
+            <div className='boxcss' >
               <strong>profile picture</strong>
-              <img src={Submitdata.pic} alt="profile pic" style={{width:'100px',height:'100px'}} />
+              <img src={Submitdata.pic} alt='profile pic' style={{width:'100px',height:'100px'}} />
             </div>
           )}
             </div>
