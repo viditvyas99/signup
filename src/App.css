@@ -10,10 +10,12 @@ box-shadow: 0px 0px 10px 10px #ccc;
 padding: 10px;
 flex-direction: column;
 gap: 10px;
+width: 450px;
+flex-wrap: wrap;
 }
 .labelcss{
-  padding: 2px;
-  margin: 5px;
+  flex-basis: 30%;
+  margin-top: 10px;
 }
 .boxcss{
   display: flex;
@@ -21,4 +23,18 @@ gap: 10px;
   gap: 10px;
   margin: 5px;
   padding: 5px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.FieldCss{
+  flex-basis: 60%;
+  padding: 10px;
+}
+.sbmitbtn{
+  padding: 20px 30px;
+  margin: 10px;
+  
+}
+.btnsub{
+  text-align: center !important;
 }
